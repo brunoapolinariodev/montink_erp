@@ -1,0 +1,33 @@
+name: Golang CI Pipeline
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      #Clone the repo inside vm
+      - name : Checkout code
+        uses: actions/checkout@v4
+      #Install golang
+      - name: Config Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.25
+      #Install dependencies of the project
+      - name: Install dependencies
+        run: go mod download
+
+      #Compile the project and run tests
+      - name: Compile
+        run: go build -v ./...
+
+      - name: Test
+        run: go test -v ./...
+
+
