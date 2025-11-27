@@ -1,5 +1,7 @@
 package domain
 
+import "strconv"
+
 // Order represents a purchase made in the Montink Store
 // It maps the inconsistent JSON fields returned by the API
 type Order struct {
@@ -14,6 +16,14 @@ type Order struct {
 	PaymentMethod string  `json:"forma_pagamento"`
 	Cost          float64 `json:"custo"`
 	CustomerName  string  `json:"nome_cliente"`
+}
+
+func (o Order) SalesValue() float64 {
+	val, err := strconv.ParseFloat(o.SalesValueStr, 64)
+	if err != nil {
+		return 0.0
+	}
+	return val
 }
 
 // MontinkOrderResponse represents the JSON response from the Montink API and wraps order on Orders slice
