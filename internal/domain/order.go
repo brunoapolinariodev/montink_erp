@@ -2,7 +2,7 @@ package domain
 
 import "strconv"
 
-// Order represents a purchase made in the Montink Store
+// Order represents a purchase made in the Montink Store listed on list orders
 // It maps the inconsistent JSON fields returned by the API
 type Order struct {
 	ID            string  `json:"referencia"`
@@ -26,7 +26,7 @@ func (o Order) SalesValue() float64 {
 	return val
 }
 
-// MontinkOrderResponse represents the JSON response from the Montink API and wraps order on Orders slice
+// MontinkOrderResponse represents the JSON response from the list orders from Montink API and wraps order on Orders slice
 type MontinkOrderResponse struct {
 	Success bool    `json:"success"`
 	Message string  `json:"msg"`
